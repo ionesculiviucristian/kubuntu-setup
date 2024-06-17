@@ -85,9 +85,6 @@ echo -e "[Service]\nExecStart=\nExecStart=/usr/libexec/bluetooth/bluetoothd --no
 sudo systemctl daemon-reload;
 sudo systemctl restart bluetooth.service;
 
-cp ./.bash_aliases ~/.bash_aliases;
-if [ -f ./.bash_private ]; then
-    cp ./.bash_private ~/.bash_private;
-fi
+./install_aliases.sh
 
 sudo reboot now;

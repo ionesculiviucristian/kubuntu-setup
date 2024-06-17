@@ -12,6 +12,7 @@ alias .4="cd ../../../../"
 alias .5="cd ../../../../.."
 # Docker
 alias dc="docker compose"
+alias dps="docker ps"
 alias ds="docker stats --no-stream"
 alias dsa="docker stop $(docker ps -a -q)"
 di() {
