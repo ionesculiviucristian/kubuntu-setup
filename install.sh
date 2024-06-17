@@ -85,6 +85,8 @@ echo -e "[Service]\nExecStart=\nExecStart=/usr/libexec/bluetooth/bluetoothd --no
 sudo systemctl daemon-reload;
 sudo systemctl restart bluetooth.service;
 
+# Setup dotfiles
 ./install_aliases.sh
+guake --restore-preferences ./dotfiles/guake
 
 sudo reboot now;
