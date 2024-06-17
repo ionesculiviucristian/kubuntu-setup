@@ -18,15 +18,18 @@ alias dsa="docker stop $(docker ps -a -q)"
 di() {
     docker inspect "$1"
 }
+dpsg() {
+    dps | grep "$1"
+}
 # Docker compose
 alias dcd="dc down --remove-orphans"
 alias dcdv="dcd -v"
 alias dcps='dc ps --format "table {{.ID}}\t{{.Name}}\t{{.Service}}\t{{.State}}\t{{.Status}}\t{{.Ports}}"'
 alias dcr="dc restart"
-dce () {
+dce() {
     dc exec "$1" sh
 }
-dcer () {
+dcer() {
     dc exec --user root "$1" sh
 }
 dcl() {
@@ -35,6 +38,9 @@ dcl() {
     else
         dc logs -f
     fi
+}
+dcpsg() {
+    dcps | grep "$1"
 }
 dcu() {
     if [ -n "$1" ]; then
