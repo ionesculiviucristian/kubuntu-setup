@@ -22,6 +22,7 @@ dpsg() {
     dps | grep "$1"
 }
 # Docker compose
+alias dcb="dc build"
 alias dcd="dc down --remove-orphans"
 alias dcdv="dcd -v"
 alias dcps='dc ps --format "table {{.ID}}\t{{.Name}}\t{{.Service}}\t{{.State}}\t{{.Status}}\t{{.Ports}}"'
@@ -47,6 +48,13 @@ dcu() {
         dc up -d "$1"
     else
         dc up -d
+    fi
+}
+dcub() {
+    if [ -n "$1" ]; then
+        dcu --build "$1"
+    else
+        dcu --build
     fi
 }
 dcuf() {
