@@ -26,7 +26,6 @@ alias dcb="dc build"
 alias dcd="dc down --remove-orphans"
 alias dcdv="dcd -v"
 alias dcps='dc ps --format "table {{.ID}}\t{{.Name}}\t{{.Service}}\t{{.State}}\t{{.Status}}\t{{.Ports}}"'
-alias dcr="dc restart"
 dce() {
     dc exec "$1" sh
 }
@@ -62,6 +61,20 @@ dcuf() {
         dcu "$1" --force-recreate
     else
         dcu --force-recreate
+    fi
+}
+dcr() {
+    if [ -n "$1" ]; then
+        dc restart "$1"
+    else
+        dc restart
+    fi
+}
+dcrl() {
+    if [ -n "$1" ]; then
+        dcr "$1" && dcl "$1"
+    else
+        dcr && dcl
     fi
 }
 # Misc
