@@ -14,7 +14,7 @@ alias .5="cd ../../../../.."
 alias dc="docker compose"
 alias dps="docker ps"
 alias ds="docker stats --no-stream"
-alias dsa="docker stop $(docker ps -a -q)"
+alias dsa='docker stop $(docker ps -a -q)'
 di() {
     docker inspect "$1"
 }
