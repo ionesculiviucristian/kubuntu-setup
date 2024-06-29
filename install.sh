@@ -74,35 +74,6 @@ sudo docker run hello-world;
 
 sudo usermod -aG docker $USER;
 
-# Install normal drivers
-# sudo apt install nvidia-driver-535;
-
-# Or install CUDA enabled drivers with NVIDIA Container Toolkit
-# wget https://developer.download.nvidia.com/compute/cuda/12.5.0/local_installers/cuda_12.5.0_555.42.02_linux.run
-# chmod +x cuda_12.5.0_555.42.02_linux.run
-# sudo ./cuda_12.5.0_555.42.02_linux.run --silent --driver --toolkit --override
-# rm -f cuda_12.5.0_555.42.02_linux.run
-# echo 'export PATH="/usr/local/cuda/bin:$PATH"' >> ~/.bashrc
-# echo 'export LD_LIBRARY_PATH="/usr/local/cuda-12.5/lib64"' >> ~/.bashrc
-
-# curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
-#   && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
-#     sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
-#     sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
-# sudo apt-get update
-# sudo apt-get install -y nvidia-container-toolkit
-
-# sudo nvidia-ctk runtime configure --runtime=docker
-# sudo docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi
-
-echo "blacklist i2c_nvidia_gpu" | sudo tee -a /etc/modprobe.d/blacklist_i2c-nvidia-gpu.conf;
-sudo update-initramfs -u;
-
-sudo mkdir /etc/systemd/system/bluetooth.service.d;
-echo -e "[Service]\nExecStart=\nExecStart=/usr/libexec/bluetooth/bluetoothd --noplugin=sap" | sudo tee -a /etc/systemd/system/bluetooth.service.d/01-disable-sap-plugin.conf;
-sudo systemctl daemon-reload;
-sudo systemctl restart bluetooth.service;
-
 # Setup dotfiles
 ./install_aliases.sh
 guake --restore-preferences ./dotfiles/guake
