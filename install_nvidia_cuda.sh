@@ -2,6 +2,17 @@
 
 set -eu
 
+# If you already have nvidia regular drivers installed
+# sudo apt --purge remove '*nvidia*${DRIVER_BRANCH}*'
+
+# cat <<EOF | sudo tee /etc/modprobe.d/blacklist-nouveau.conf
+# blacklist nouveau
+# options nouveau modeset=0
+# EOF
+
+# sudo update-initramfs -u
+# reboot
+
 # Install CUDA enabled drivers alonside NVIDIA Container Toolkit
 wget https://developer.download.nvidia.com/compute/cuda/12.5.0/local_installers/cuda_12.5.0_555.42.02_linux.run
 chmod +x cuda_12.5.0_555.42.02_linux.run
