@@ -19,63 +19,45 @@ di() {
     docker inspect "$1"
 }
 dpsg() {
-    dps | grep "$1"
+    docker ps | grep "$1"
 }
 # Docker compose
-alias dcb="dc build"
-alias dcd="dc down --remove-orphans"
-alias dcdv="dcd -v"
-alias dcps='dc ps --format "table {{.ID}}\t{{.Name}}\t{{.Service}}\t{{.State}}\t{{.Status}}\t{{.Ports}}"'
+alias dcps='docker compose ps --format "table {{.ID}}\t{{.Name}}\t{{.Service}}\t{{.State}}\t{{.Status}}\t{{.Ports}}"'
+dcb() {
+    docker compose build "$@"
+}
+dcd() {
+    docker compose down --remove-orphans "$@"
+}
+dcdv() {
+    docker compose down --remove-orphans --volumes "$@"
+}
 dce() {
-    dc exec "$1" sh
+    docker compose exec "$1" sh
 }
 dcer() {
-    dc exec --user root "$1" sh
+    docker compose exec --user root "$1" sh
 }
 dcl() {
-    if [ -n "$1" ]; then
-        dc logs -f "$1"
-    else
-        dc logs -f
-    fi
+    docker compose logs --follow --tail 100 "$@"
 }
 dcpsg() {
     dcps | grep "$1"
 }
 dcu() {
-    if [ -n "$1" ]; then
-        dc up -d "$1"
-    else
-        dc up -d
-    fi
+    docker compose up --detach "$@"
 }
 dcub() {
-    if [ -n "$1" ]; then
-        dcu --build "$1"
-    else
-        dcu --build
-    fi
+    docker compose up --detach --build "$@"
 }
 dcuf() {
-    if [ -n "$1" ]; then
-        dcu "$1" --force-recreate
-    else
-        dcu --force-recreate
-    fi
+    docker compose up --detach --force-recreate "$@"
 }
 dcr() {
-    if [ -n "$1" ]; then
-        dc restart "$1"
-    else
-        dc restart
-    fi
+    docker compose restart "$@"
 }
 dcrl() {
-    if [ -n "$1" ]; then
-        dcr "$1" && dcl "$1"
-    else
-        dcr && dcl
-    fi
+    docker compose restart "$@" && docker compose logs --follow --tail 100 "$@"
 }
 # Misc
 alias path="echo -e ${PATH//:/\\n}"
