@@ -63,6 +63,7 @@ dcrl() {
 alias path="echo -e ${PATH//:/\\n}"
 alias ports="netstat -tulanp"
 alias update="sudo apt update && sudo apt upgrade"
+alias video='glxinfo | grep -E "OpenGL vendor|OpenGL renderer"'
 # Some things are best kept private
 if [ -f ~/.bash_private ]; then
     . ~/.bash_private
