@@ -22,7 +22,12 @@ dpsg() {
     docker ps | grep "$1"
 }
 # Docker compose
-alias dcps='docker compose ps --format "table {{.ID}}\t{{.Name}}\t{{.Service}}\t{{.State}}\t{{.Status}}\t{{.Ports}}"'
+dcps() {
+    docker compose ps --format "table {{.ID}}\t{{.Name}}\t{{.Service}}\t{{.State}}\t{{.Status}}\t{{.Ports}}" "$@"
+}
+dcpsg() {
+    dcps | grep "$1"
+}
 dcb() {
     docker compose build "$@"
 }
