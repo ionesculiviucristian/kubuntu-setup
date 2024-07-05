@@ -58,6 +58,9 @@ dcub() {
 dcuf() {
     docker compose up --detach --force-recreate "$@"
 }
+dcul() {
+    docker compose up --detach "$@" && docker compose logs --follow --tail 1000 "$@"
+}
 dcr() {
     docker compose restart "$@"
 }
