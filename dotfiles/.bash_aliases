@@ -44,7 +44,7 @@ dcer() {
     docker compose exec --user root "$1" sh
 }
 dcl() {
-    docker compose logs --follow --tail 100 "$@"
+    docker compose logs --follow --tail 1000 "$@"
 }
 dcpsg() {
     dcps | grep "$1"
@@ -62,7 +62,7 @@ dcr() {
     docker compose restart "$@"
 }
 dcrl() {
-    docker compose restart "$@" && docker compose logs --follow --tail 100 "$@"
+    docker compose restart "$@" && docker compose logs --follow --tail 1000 "$@"
 }
 # Git
 alias gf="git fetch"
