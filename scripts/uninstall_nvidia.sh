@@ -2,8 +2,13 @@
 
 set -eu
 
+# Start with this script, if it exists
+if [ -e /usr/bin/nvidia-uninstall ]; then
+    sudo /usr/bin/nvidia-uninstall
+fi
+
 # Generic uninstall
-sudo apt purge nvidia*
+sudo apt purge "*nvidia*"
 sudo apt autoremove
 
 # Manual uninstall
@@ -22,5 +27,5 @@ if [ -e /etc/X11/xorg.conf ]; then
     sudo mv /etc/X11/xorg.conf /etc/X11/xorg.conf.bak
 fi
 
-sudo update-initramfs -u
+sudo update-initramfs -u -k all
 sudo reboot
