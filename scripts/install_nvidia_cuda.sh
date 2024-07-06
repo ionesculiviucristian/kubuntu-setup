@@ -22,7 +22,7 @@ reboot
 wget https://us.download.nvidia.com/XFree86/Linux-x86_64/555.58/NVIDIA-Linux-x86_64-555.58.run
 chmod +x NVIDIA-Linux-x86_64-555.58.run 
 
-sudo apt install pkg-config libglvnd-dev
+sudo apt install pkg-config libglvnd-dev nvidia-prime nvidia-settings
 
 sudo ./NVIDIA-Linux-x86_64-555.58.run \
   --module-signing-secret-key=/home/liviu/.ssh/nvidia-module-private.key \
