@@ -1,3 +1,6 @@
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
 # Fix of the century
 alias cd..="cd .."
 # Change some defaults
@@ -10,6 +13,15 @@ alias ....="cd ../../../../"
 alias .....="cd ../../../../"
 alias .4="cd ../../../../"
 alias .5="cd ../../../../.."
+# apt
+alias aptu="sudo apt update && sudo apt upgrade"
+apti() {
+    sudo apt install "$@"
+}
+aptr() {
+    sudo apt purge "$@"
+    sudo apt autoremove
+}
 # Docker
 alias dc="docker compose"
 alias dps="docker ps"
@@ -82,8 +94,16 @@ gchk() {
 # Misc
 alias path="echo -e ${PATH//:/\\n}"
 alias ports="netstat -tulanp"
-alias update="sudo apt update && sudo apt upgrade"
-alias video='glxinfo | grep -E "OpenGL vendor|OpenGL renderer"'
+info() {
+    echo -e "${GREEN}OS:${NC}"
+    lsb_release -a
+    echo -e "${GREEN}Kernel:${NC}"
+    uname -a
+    echo -e "${GREEN}Video:${NC}"
+    glxinfo | grep -E "OpenGL vendor|OpenGL renderer|OpenGL version"
+    echo -e "${GREEN}Virtualization:${NC}"
+    kvm-ok
+}
 # Some things are best kept private
 if [ -f ~/.bash_private ]; then
     . ~/.bash_private
