@@ -6,6 +6,7 @@ set -eu
 sudo apt update
 sudo apt install -y \
     apache2-utils \
+    bat \
     btop \
     build-essential \
     ca-certificates \
@@ -20,6 +21,9 @@ sudo apt install -y \
     net-tools \
     virtualbox \
     wkhtmltopdf
+
+mkdir -p ~/.local/bin
+ln -s /usr/bin/batcat ~/.local/bin/bat
 
 # Setup directories
 mkdir ~/.drivers
