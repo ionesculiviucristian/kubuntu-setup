@@ -28,4 +28,6 @@ if [ -e /etc/X11/xorg.conf ]; then
 fi
 
 sudo update-initramfs -u -k all
+sudo sed -i 's/GRUB_CMDLINE_LINUX=".*"/GRUB_CMDLINE_LINUX=""/' /etc/default/grub
+sudo update-grub
 sudo reboot

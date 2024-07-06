@@ -6,9 +6,11 @@ set -eu
 # dkms status
 
 # Automatic installation
-sudo ubuntu-drivers install
-sudo update-initramfs -u -k all
-sudo reboot
+# sudo ubuntu-drivers install
+# sudo update-initramfs -u -k all
+# sudo reboot
+
+# If nvidia is not the default GPU
 # sudo prime-select nvidia
 # sudo reboot
 
@@ -21,8 +23,12 @@ sudo reboot
 # sudo mokutil --import ~/.ssh/nvidia-module-public.key
 # reboot
 
-# wget -P ~/.drivers https://us.download.nvidia.com/XFree86/Linux-x86_64/555.58.02/NVIDIA-Linux-x86_64-555.58.02.run
-# chmod +x ~/.drivers/NVIDIA-Linux-x86_64-555.58.02.run
-# sudo ~/.drivers/NVIDIA-Linux-x86_64-555.58.02.run \
-#   --module-signing-secret-key=${HOME}/.ssh/nvidia-module-private.key \
-#   --module-signing-public-key=${HOME}/.ssh/nvidia-module-public.key
+wget -P ~/.drivers https://us.download.nvidia.com/XFree86/Linux-x86_64/555.58/NVIDIA-Linux-x86_64-555.58.02.run
+chmod +x ~/.drivers/NVIDIA-Linux-x86_64-555.58.02.run
+sudo ~/.drivers/NVIDIA-Linux-x86_64-555.58.02.run \
+  --module-signing-secret-key=${HOME}/.ssh/nvidia-module-private.key \
+  --module-signing-public-key=${HOME}/.ssh/nvidia-module-public.key
+
+sudo sed -i 's/GRUB_CMDLINE_LINUX=".*"/GRUB_CMDLINE_LINUX="nvidia-drm.modeset=1 nosimplefb=1"/' /etc/default/grub
+sudo update-grub
+sudo reboot
