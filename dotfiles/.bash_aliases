@@ -55,6 +55,9 @@ dce() {
 dcer() {
     docker compose exec --user root "$1" sh
 }
+dci() {
+    docker inspect $(docker compose ps -q "$@")
+}
 dcl() {
     docker compose logs --follow --tail 1000 "$@"
 }
