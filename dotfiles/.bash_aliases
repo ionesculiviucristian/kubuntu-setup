@@ -62,6 +62,13 @@ dci() {
 dcl() {
     docker compose logs --follow --tail 1000 "$@"
 }
+dclc() {
+    for container_id in $(docker ps -aq); do
+        log_path=$(docker inspect --format='{{.LogPath}}' $container_id)
+        sudo truncate -s 0 $log_path
+        echo "Cleared ${log_path} for ${container_id}"
+    done
+}
 dcpsg() {
     dcps | grep "$1"
 }
