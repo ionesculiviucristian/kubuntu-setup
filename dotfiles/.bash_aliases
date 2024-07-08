@@ -1,6 +1,7 @@
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
+BOLD='\033[1m'
 # Fix of the century
 alias cd..="cd .."
 # Change some defaults
@@ -98,14 +99,24 @@ gchk() {
 alias path="echo -e ${PATH//:/\\n}"
 alias ports="netstat -tulanp"
 info() {
-    echo -e "${GREEN}OS:${NC}"
+    echo -e "${GREEN}Operating system:${NC}"
     lsb_release -a
     echo -e "${GREEN}Kernel:${NC}"
     uname -a
-    echo -e "${GREEN}Video:${NC}"
+    echo -e "${GREEN}OpenGL:${NC}"
     glxinfo | grep -E "OpenGL vendor|OpenGL renderer|OpenGL version"
+    echo -e "${GREEN}Disk space:${NC}"
+    df -h
     echo -e "${GREEN}Virtualization:${NC}"
     kvm-ok
+    echo -e "${GREEN}Environment variables:${NC}"
+    printenv
+}
+all () {
+    echo -e "${GREEN}apt aliases:${NC}"
+    echo -e "${BOLD}aptu:${NC} upgrades all packages"
+    echo -e "${BOLD}apti${NC} package(s): installs one or more packages"
+    echo -e "${BOLD}aptr${NC} package(s): removes one or more packages"
 }
 # Some things are best kept private
 if [ -f ~/.bash_private ]; then
