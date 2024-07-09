@@ -84,6 +84,11 @@ sudo docker run hello-world
 
 sudo usermod -aG docker $USER
 
+# Mainline Ubuntu Kernel Installer
+sudo add-apt-repository ppa:cappelikan/ppa
+sudo apt update && sudo apt full-upgrade
+sudo apt install -y mainline
+
 # Setup dotfiles
 ./scripts/install_aliases.sh
 guake --restore-preferences ./dotfiles/guake

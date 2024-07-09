@@ -1,13 +1,11 @@
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
-# Overrides
-alias ll="ls -ahl"
-alias mkdir="mkdir -pv"
+# System overrides
+alias ll="ls -l --all --human-readable"
+alias mkdir="mkdir --parents"
 alias rm='rm -i'
-# Fix of the century
-alias cd..="cd .."
-# Navigation
+# File system
 alias ..="cd ../"
 alias ...="cd ../../"
 alias ....="cd ../../../"
@@ -17,7 +15,7 @@ alias .2="cd ../../"
 alias .3="cd ../../../"
 alias .4="cd ../../../../"
 alias .5="cd ../../../../../"
-# apt
+# apt package manager
 apti() {
     sudo apt install "$@"
 }
@@ -31,12 +29,21 @@ alias dc="docker compose"
 di() {
     docker inspect "$1"
 }
+alias dlclr='docker ps -aq | xargs --replace={} sh -c "sudo truncate --size=0 \$(docker inspect --format=\"{{.LogPath}}\" {})"'
+alias dlsz='sudo du -ch $(docker inspect --format="{{.LogPath}}" $(docker ps --all --quiet)) | sort -h'
 alias dps="docker ps"
-dpsg() {
+alias dpsa="docker ps -a"
+dpsf() {
     docker ps | grep "$1"
 }
-alias ds="docker stats"
-alias dsa='docker stop $(docker ps -aq)'
+dpsaf() {
+    docker ps -a | grep "$1"
+}
+alias dsts="docker stats"
+ds() {
+    docker stop "$@"
+}
+alias dsa='docker stop $(docker ps --all --quiet)'
 # Docker compose
 dcb() {
     docker compose build "$@"
@@ -48,29 +55,22 @@ dcdv() {
     docker compose down --remove-orphans --volumes "$@"
 }
 dce() {
-    docker compose exec "$1" sh
+    docker compose exec "$1" "${2:-sh}"
 }
 dcer() {
-    docker compose exec --user root "$1" sh
+    docker compose exec --user root "$1" "${2:-sh}"
 }
 dci() {
-    docker inspect $(docker compose ps -q "$@")
+    docker inspect $(docker compose ps --quiet "$@")
 }
 dcl() {
     docker compose logs --follow --tail 1000 "$@"
 }
-dclc() {
-    for container_id in $(docker ps -aq); do
-        log_path=$(docker inspect --format='{{.LogPath}}' $container_id)
-        sudo truncate -s 0 $log_path
-        echo "Cleared ${log_path} for ${container_id}"
-    done
-}
 dcps() {
     docker compose ps --format "table {{.ID}}\t{{.Name}}\t{{.Service}}\t{{.State}}\t{{.Status}}\t{{.Ports}}" "$@"
 }
-dcpsg() {
-    dcps | grep "$1"
+dcpsf() {
+    docker compose ps --format "table {{.ID}}\t{{.Name}}\t{{.Service}}\t{{.State}}\t{{.Status}}\t{{.Ports}}" "$@" | grep "$1"
 }
 dcr() {
     docker compose restart "$@"
@@ -94,7 +94,7 @@ dcul() {
 gic() {
     git add . && git commit -m "$1"
 }
-gichk() {
+gico() {
     git checkout "$1"
 }
 alias gif="git fetch"
@@ -107,25 +107,26 @@ alias gis="git stash"
 alias poi="poetry install"
 alias pos="poetry shell"
 # Misc
-alias err="sudo journalctl -b -1 -a"
 info() {
     echo -e "${GREEN}Operating system:${NC}"
-    lsb_release -a
+    lsb_release --all
     echo -e "${GREEN}Kernel:${NC}"
-    uname -a
+    uname --all
     echo -e "${GREEN}OpenGL:${NC}"
     glxinfo | grep -E "OpenGL vendor|OpenGL renderer|OpenGL version"
     echo -e "${GREEN}Memory:${NC}"
-    free -m -l -t
+    free --mebi --lohi --total
     echo -e "${GREEN}Disk space:${NC}"
-    df -h
+    df --human-readable
     echo -e "${GREEN}Virtualization:${NC}"
     kvm-ok
     echo -e "${GREEN}Environment variables:${NC}"
     printenv
 }
-alias path="echo -e ${PATH//:/\\n}"
-alias ports="netstat -tulanp"
+alias jrna="sudo journalctl --boot=-1 --all"
+alias path='echo -e ${PATH//:/\\n}'
+alias ports="netstat --tcp --udp --listening --all --numeric --programs"
+alias prj="cd $HOME/Projects"
 # Some things are best kept private
 if [ -f ~/.bash_private ]; then
     . ~/.bash_private
