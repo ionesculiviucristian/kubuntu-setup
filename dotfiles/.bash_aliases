@@ -8,11 +8,10 @@ alias rm='rm -i'
 # Fix of the century
 alias cd..="cd .."
 # Navigation
-alias .="cd ../"
-alias ..="cd ../../"
-alias ...="cd ../../../"
-alias ....="cd ../../../../"
-alias .....="cd ../../../../../"
+alias ..="cd ../"
+alias ...="cd ../../"
+alias ....="cd ../../../"
+alias .....="cd ../../../../"
 alias .1="cd ../"
 alias .2="cd ../../"
 alias .3="cd ../../../"
@@ -91,19 +90,22 @@ dcuf() {
 dcul() {
     docker compose up --detach "$@" && docker compose logs --follow --tail 1000 "$@"
 }
-# Git
-gc() {
+# git
+gic() {
     git add . && git commit -m "$1"
 }
-gchk() {
+gichk() {
     git checkout "$1"
 }
-alias gf="git fetch"
-alias gp="git pull"
-alias gpr="git pull --rebase"
-alias gpu="git push"
-alias gpuf="git push --force-with-lease"
-alias gs="git stash"
+alias gif="git fetch"
+alias gip="git pull"
+alias gipr="git pull --rebase"
+alias gipu="git push"
+alias gipuf="git push --force-with-lease"
+alias gis="git stash"
+# poetry
+alias poi="poetry install"
+alias pos="poetry shell"
 # Misc
 alias err="sudo journalctl -b -1 -a"
 info() {
