@@ -105,6 +105,7 @@ alias gpu="git push"
 alias gpuf="git push --force-with-lease"
 alias gs="git stash"
 # Misc
+alias err="sudo journalctl -b -1 -a"
 info() {
     echo -e "${GREEN}Operating system:${NC}"
     lsb_release -a
