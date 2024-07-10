@@ -89,6 +89,9 @@ sudo add-apt-repository ppa:cappelikan/ppa
 sudo apt update && sudo apt full-upgrade
 sudo apt install -y mainline
 
+git config --global user.name "Ionescu Liviu Cristian"
+git config --global user.email "$(echo bGl2aXVAcHVycGxlY2F0LWxhYnMuY29t | base64 --decode)"
+
 # Setup dotfiles
 ./scripts/install_aliases.sh
 guake --restore-preferences ./dotfiles/guake
