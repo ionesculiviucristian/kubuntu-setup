@@ -14,7 +14,6 @@ alias .1="cd ../"
 alias .2="cd ../../"
 alias .3="cd ../../../"
 alias .4="cd ../../../../"
-alias .5="cd ../../../../../"
 # apt package manager
 apti() {
     sudo apt install "$@"
@@ -32,12 +31,12 @@ di() {
 alias dlclr='docker ps -aq | xargs --replace={} sh -c "sudo truncate --size=0 \$(docker inspect --format=\"{{.LogPath}}\" {})"'
 alias dlsz='sudo du -ch $(docker inspect --format="{{.LogPath}}" $(docker ps --all --quiet)) | sort -h'
 alias dps="docker ps"
-alias dpsa="docker ps -a"
+alias dpsa="docker ps --all"
 dpsf() {
     docker ps | grep "$1"
 }
 dpsaf() {
-    docker ps -a | grep "$1"
+    docker ps --all | grep "$1"
 }
 alias dsts="docker stats"
 ds() {

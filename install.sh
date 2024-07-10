@@ -23,12 +23,13 @@ sudo apt install -y \
     virtualbox \
     wkhtmltopdf
 
+# Invoke bat easier
 mkdir -p ~/.local/bin
 ln -s /usr/bin/batcat ~/.local/bin/bat
 
 # Setup directories
 mkdir ~/.drivers
-mkdir ~/.local/share/fonts
+mkdir -p ~/.local/share/fonts
 mkdir ~/.repos
 mkdir ~/Projects
 
@@ -83,11 +84,6 @@ sudo apt -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin d
 sudo docker run hello-world
 
 sudo usermod -aG docker $USER
-
-# Mainline Ubuntu Kernel Installer
-sudo add-apt-repository ppa:cappelikan/ppa
-sudo apt update && sudo apt full-upgrade
-sudo apt install -y mainline
 
 git config --global user.name "Ionescu Liviu Cristian"
 git config --global user.email "$(echo bGl2aXVAcHVycGxlY2F0LWxhYnMuY29t | base64 --decode)"
