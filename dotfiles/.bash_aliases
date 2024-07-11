@@ -109,6 +109,8 @@ alias pos="poetry shell"
 info() {
     echo -e "${GREEN}Operating system:${NC}"
     lsb_release --all
+    echo -e "${GREEN}Secure boot:${NC}"
+    sudo mokutil --sb-state
     echo -e "${GREEN}Kernel:${NC}"
     uname --all
     echo -e "${GREEN}OpenGL:${NC}"
@@ -126,6 +128,7 @@ alias jrna="sudo journalctl --boot=-1 --all"
 alias path='echo -e ${PATH//:/\\n}'
 alias ports="netstat --tcp --udp --listening --all --numeric --programs"
 alias prj="cd $HOME/Projects"
+alias services="systemctl list-units --type=service"
 # Some things are best kept private
 if [ -f ~/.bash_private ]; then
     . ~/.bash_private

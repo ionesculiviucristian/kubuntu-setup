@@ -88,8 +88,10 @@ sudo usermod -aG docker $USER
 git config --global user.name "Ionescu Liviu Cristian"
 git config --global user.email "$(echo bGl2aXVAcHVycGxlY2F0LWxhYnMuY29t | base64 --decode)"
 
+sudo snap install postman
+
 # Setup dotfiles
-./scripts/install_aliases.sh
+./install_aliases.sh
 guake --restore-preferences ./dotfiles/guake
 
 sudo reboot now
