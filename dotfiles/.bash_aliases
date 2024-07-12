@@ -133,8 +133,8 @@ info() {
     echo -e "${GREEN}Environment variables:${NC}"
     printenv
 }
-alias jrn="journalctl --follow"
-alias jrna="sudo journalctl --boot=-1 --all"
+alias logs="sudo journalctl --all --follow"
+alias logsb="sudo journalctl --boot=-1 --all"
 alias ports="netstat --tcp --udp --listening --all --numeric --programs"
 alias proj="cd $HOME/Projects"
 projc() {

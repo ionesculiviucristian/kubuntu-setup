@@ -2,7 +2,7 @@
 
 set -eu
 
-# Install system tools / apps
+# Install packages
 sudo apt update
 sudo apt install -y \
     apache2-utils \
@@ -22,6 +22,8 @@ sudo apt install -y \
     tree \
     virtualbox \
     wkhtmltopdf
+
+sudo snap install postman
 
 # Invoke bat easier
 mkdir -p ~/.local/bin
@@ -55,18 +57,23 @@ export NVM_DIR="$HOME/.nvm"
 nvm install 18
 nvm install 20
 nvm install 22
+
+nvm use 20
 nvm install-latest-npm
+npm install -g npm-check-updates
 
 # Google Chrome
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/chrome.deb
-sudo apt install -y /tmp/chrome.deb
-rm /tmp/chrome.deb
+GOOGLE_CHROME_DEB=$(mktemp)
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O ${GOOGLE_CHROME_DEB}
+sudo apt install -y ${GOOGLE_CHROME_DEB}
+rm ${GOOGLE_CHROME_DEB}
 
 # VSCode
 # https://code.visualstudio.com/docs/setup/linux
-wget https://go.microsoft.com/fwlink/?LinkID=760868 -O /tmp/code.deb
-sudo apt install -y /tmp/code.deb
-rm /tmp/code.deb
+CODE_DEB=$(mktemp)
+wget https://go.microsoft.com/fwlink/?LinkID=760868 -O ${CODE_DEB}
+sudo apt install -y ${CODE_DEB}
+rm ${CODE_DEB}
 
 # Docker
 # https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
@@ -86,14 +93,13 @@ sudo docker run hello-world
 
 sudo usermod -aG docker $USER
 
+# Install dotfiles
+./install_aliases.sh
+guake --restore-preferences ./dotfiles/guake
+
+# Apply settings
 git config --global user.name "Ionescu Liviu Cristian"
 git config --global user.email "$(echo bGl2aXVAcHVycGxlY2F0LWxhYnMuY29t | base64 --decode)"
 git config --global init.defaultBranch main
-
-sudo snap install postman
-
-# Setup dotfiles
-./install_aliases.sh
-guake --restore-preferences ./dotfiles/guake
 
 sudo reboot now
