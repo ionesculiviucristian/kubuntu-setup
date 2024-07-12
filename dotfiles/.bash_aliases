@@ -54,10 +54,10 @@ dcdv() {
     docker compose down --remove-orphans --volumes "$@"
 }
 dce() {
-    docker compose exec "$1" "${2:-sh}"
+    docker compose exec "$1" sh -c "${2:-sh}"
 }
 dcer() {
-    docker compose exec --user root "$1" "${2:-sh}"
+    docker compose exec --user root "$1" sh -c "${2:-sh}"
 }
 dci() {
     docker inspect $(docker compose ps --quiet "$@")
