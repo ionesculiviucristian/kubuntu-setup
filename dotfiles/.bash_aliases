@@ -97,15 +97,24 @@ gico() {
     git checkout "$1"
 }
 alias gif="git fetch"
+alias gil='git log -n 100 --pretty=format:"%h | %ad | %s" --date=short --graph'
 alias gip="git pull"
 alias gipr="git pull --rebase"
 alias gipu="git push"
 alias gipuf="git push --force-with-lease"
+girh() {
+    git reset --hard "$1"
+}
+gisq() {
+    git reset --soft "$1"
+    git commit -m "$2"
+}
 alias gis="git stash"
 # poetry
 alias poi="poetry install"
 alias pos="poetry shell"
 # Misc
+alias backup='zip "$HOME/.backups/$(basename "$PWD" | tr "[:upper:]" "[:lower:]" | tr " " "-")-$(date +%Y%m%d%H%M%S).zip" -r .'
 info() {
     echo -e "${GREEN}Operating system:${NC}"
     lsb_release --all
@@ -124,11 +133,17 @@ info() {
     echo -e "${GREEN}Environment variables:${NC}"
     printenv
 }
+alias jrn="journalctl --follow"
 alias jrna="sudo journalctl --boot=-1 --all"
-alias path='echo -e ${PATH//:/\\n}'
 alias ports="netstat --tcp --udp --listening --all --numeric --programs"
-alias prj="cd $HOME/Projects"
-alias services="systemctl list-units --type=service"
+alias proj="cd $HOME/Projects"
+projc() {
+    mkdir -p "$HOME/Projects/$1"
+    cd "$HOME/Projects/$1"
+    git init
+}
+alias rld="source $HOME/.bashrc"
+alias srv="systemctl list-units --type=service"
 # Some things are best kept private
 if [ -f ~/.bash_private ]; then
     . ~/.bash_private

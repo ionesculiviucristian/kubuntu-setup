@@ -28,6 +28,7 @@ mkdir -p ~/.local/bin
 ln -s /usr/bin/batcat ~/.local/bin/bat
 
 # Setup directories
+mkdir ~/.backups
 mkdir ~/.drivers
 mkdir -p ~/.local/share/fonts
 mkdir ~/.repos
@@ -87,6 +88,7 @@ sudo usermod -aG docker $USER
 
 git config --global user.name "Ionescu Liviu Cristian"
 git config --global user.email "$(echo bGl2aXVAcHVycGxlY2F0LWxhYnMuY29t | base64 --decode)"
+git config --global init.defaultBranch main
 
 sudo snap install postman
 

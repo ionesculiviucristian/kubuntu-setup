@@ -78,9 +78,12 @@
 - `gic`: Add file contents to the index from the current directory and record changes to the repository
 - `gico`: Switch branches or restore working tree files
 - `gif`: Download objects and refs from another repository
+- `gil`: Shows the commit logs
 - `gip`: Fetch from and integrate with another repository or a local branch
 - `gipu`: Update remote refs along with associated objects
 - `gipuf`: Update remote refs along with associated objects using `--force-with-lease`
+- `girh <commit>`: Hard reset current HEAD to the specified state
+- `gisq <commit> <message>`: Squash commits
 - `gis`: Stash the changes in a dirty working directory away
 
 #### poetry
@@ -90,12 +93,15 @@
 
 #### Misc
 
+- `backup`: Backup files from current directory to `~/.backups`
 - `info`: Get an overview on the current operating system
+- `jrn`: Query the journal continuously
 - `jrna`: Query the journal for all logs from the previous boot
-- `path`: Output the value of `$PATH` variable
 - `ports`: List ports
-- `prj`: Switch the current working directory to `~/Projects`
-- `services`: List service units currently in memory
+- `proj`: Switch the current working directory to `~/Projects`
+- `projc <name>`: Create a new project in `~/Projects`
+- `rld`: Source `~/.bashrc`
+- `srv`: List service units currently in memory
 
 ### Additional notes
 
