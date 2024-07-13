@@ -4,7 +4,7 @@ NC='\033[0m'
 # System overrides
 alias ll="ls -l --all --human-readable"
 alias mkdir="mkdir --parents"
-alias rm='rm -i'
+alias rm="rm -i"
 # File system
 alias ..="cd ../"
 alias ...="cd ../../"

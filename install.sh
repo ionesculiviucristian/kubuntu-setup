@@ -103,4 +103,6 @@ git config --global user.name "Ionescu Liviu Cristian"
 git config --global user.email "$(echo bGl2aXVAcHVycGxlY2F0LWxhYnMuY29t | base64 --decode)"
 git config --global init.defaultBranch main
 
+sudo ln -s /usr/bin/python3 /usr/bin/python
+
 sudo reboot now
