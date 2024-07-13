@@ -93,6 +93,12 @@ dcul() {
 gic() {
     git add . && git commit -m "$1"
 }
+gicpu() {
+    git add . && git commit -m "$1" && git push
+}
+gicpuf() {
+    git add . && git commit -m "$1" && git push --force-with-lease
+}
 gico() {
     git checkout "$1"
 }

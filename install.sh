@@ -19,6 +19,7 @@ sudo apt install -y \
     libnss3-tools \
     mesa-utils \
     net-tools \
+    transmission \
     tree \
     virtualbox \
     wkhtmltopdf
