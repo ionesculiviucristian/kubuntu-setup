@@ -146,13 +146,26 @@ info() {
 alias logs="sudo journalctl --all --follow"
 alias logsb="sudo journalctl --boot=-1 --all"
 alias ports="netstat --tcp --udp --listening --all --numeric --programs"
-alias proj="cd $HOME/Projects"
+alias proj="cd ${HOME}/Projects"
 projc() {
-    mkdir -p "$HOME/Projects/$1"
-    cd "$HOME/Projects/$1"
+    mkdir -p "${HOME}/Projects/$1"
+    cd "${HOME}/Projects/$1"
     git init
 }
-alias rld="source $HOME/.bashrc"
+_autocomplete_projects()
+{
+    local cur;
+    local base="${HOME}/Projects"
+    _get_comp_words_by_ref cur;
+    cur="$base$cur"
+    _filedir
+    COMPREPLY=("${COMPREPLY[@]#$base}")
+}
+complete -o nospace -F _autocomplete_projects projo
+projo() {
+    code "${HOME}/Projects/$1/"
+}
+alias rld="source ${HOME}/.bashrc"
 alias srv="systemctl list-units --type=service"
 # Some things are best kept private
 if [ -f ~/.bash_private ]; then
