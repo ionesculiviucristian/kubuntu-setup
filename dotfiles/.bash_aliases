@@ -103,13 +103,17 @@ gico() {
     git checkout "$1"
 }
 alias gif="git fetch"
-alias gil='git log -n 100 --pretty=format:"%h | %ad | %s" --date=short --graph'
+alias gil='git log --oneline -25'
 alias gip="git pull"
 alias gipr="git pull --rebase"
 alias gipu="git push"
 alias gipuf="git push --force-with-lease"
 girh() {
-    git reset --hard "$1"
+    if [ -z "$1" ]; then
+        git reset --hard
+    else
+        git reset --hard "$1"
+    fi
 }
 gisq() {
     git reset --soft "$1"
