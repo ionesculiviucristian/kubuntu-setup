@@ -100,6 +100,7 @@
 - `ports`: List ports
 - `proj`: Set the current working directory to `~/Projects`
 - `projc <name>`: Create a new project in `~/Projects`
+- `projo <path>`: Open a project found in `~/Projects`
 - `rld`: Source `~/.bashrc`
 - `srv`: List service units currently in memory
 

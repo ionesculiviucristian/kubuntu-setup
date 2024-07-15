@@ -152,8 +152,7 @@ projc() {
     cd "${HOME}/Projects/$1"
     git init
 }
-_autocomplete_projects()
-{
+_autocomplete_projects() {
     local cur;
     local base="${HOME}/Projects"
     _get_comp_words_by_ref cur;
