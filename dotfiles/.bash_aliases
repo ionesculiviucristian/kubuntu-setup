@@ -103,7 +103,7 @@ gico() {
     git checkout "$1"
 }
 alias gif="git fetch"
-alias gil='git log --oneline -25'
+alias gil='git log --graph --pretty=format:"%C(cyan)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(magenta)<%an>%Creset" --abbrev-commit --date=relative'
 alias gip="git pull"
 alias gipr="git pull --rebase"
 alias gipu="git push"
