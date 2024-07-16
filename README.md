@@ -45,6 +45,7 @@
 
 - `dc`: Define and run multi-container applications with Docker
 - `di <container>`: Return low-level information on Docker objects
+- `dl <container>`: Fetch the logs of a container
 - `dlclr`: Empty logs from all containers
 - `dlsz`: Order list of logs from all containers by their size; also print their total size
 - `dps`: List running containers

@@ -28,6 +28,9 @@ alias dc="docker compose"
 di() {
     docker inspect "$1"
 }
+dl() {
+    docker logs --follow "$1"
+}
 alias dlclr='docker ps -aq | xargs --replace={} sh -c "sudo truncate --size=0 \$(docker inspect --format=\"{{.LogPath}}\" {})"'
 alias dlsz='sudo du -ch $(docker inspect --format="{{.LogPath}}" $(docker ps --all --quiet)) | sort -h'
 alias dps="docker ps"
