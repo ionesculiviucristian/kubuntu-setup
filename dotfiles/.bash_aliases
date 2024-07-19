@@ -25,6 +25,9 @@ aptr() {
 alias aptu="sudo apt update && sudo apt upgrade"
 # Docker
 alias dc="docker compose"
+de() {
+    docker exec -it "$1" sh -c "${2:-sh}"
+}
 di() {
     docker inspect "$1"
 }
