@@ -5,24 +5,24 @@ set -eu
 # Install packages
 sudo apt update
 sudo apt install -y \
-    apache2-utils \
-    bat \
-    btop \
-    build-essential \
-    ca-certificates \
-    cpu-checker \
-    curl \
-    dconf-cli \
-    guake \
-    jose \
-    keepassxc \
-    libnss3-tools \
-    mesa-utils \
-    net-tools \
-    transmission \
-    tree \
-    virtualbox \
-    wkhtmltopdf
+  apache2-utils \
+  bat \
+  btop \
+  build-essential \
+  ca-certificates \
+  cpu-checker \
+  curl \
+  dconf-cli \
+  guake \
+  jose \
+  keepassxc \
+  libnss3-tools \
+  mesa-utils \
+  net-tools \
+  transmission \
+  tree \
+  virtualbox \
+  wkhtmltopdf
 
 sudo snap install postman
 
@@ -108,6 +108,11 @@ guake --restore-preferences ./dotfiles/guake
 git config --global user.name "Ionescu Liviu Cristian"
 git config --global user.email "$(echo bGl2aXVAcHVycGxlY2F0LWxhYnMuY29t | base64 --decode)"
 git config --global init.defaultBranch main
+git config --global core.editor "code --wait --new-window"
+git config --global diff.tool vscode
+git config --global difftool.vscode.cmd 'code --wait --diff $LOCAL $REMOTE'
+git config --global merge.tool vscode
+git config --global mergetool.vscode.cmd 'code --wait $MERGED'
 
 sudo ln -s /usr/bin/python3 /usr/bin/python
 
