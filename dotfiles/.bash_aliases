@@ -115,6 +115,9 @@ alias gib="git branch"
 gibc() {
     git branch "$1"
 }
+gibco() {
+    git checkout -b "$1"
+}
 gibd() {
     git branch -d "$1"
 }

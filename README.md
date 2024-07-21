@@ -79,6 +79,7 @@
 
 - `gib`: List branches
 - `gibc <name>`: Create branch
+- `gibco <name>`: Create and checkout branch
 - `gibd <name>`: Delete merged branch
 - `gibdf <name>`: Delete non-merged branch
 - `gibr <old> <new>`: Delete branch
