@@ -99,6 +99,9 @@ dcul() {
 gic() {
     git add . && git commit -m "$1"
 }
+gica() {
+    git commit --amend -m "$1"
+}
 gicpu() {
     git add . && git commit -m "$1" && git push
 }

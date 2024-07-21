@@ -82,10 +82,12 @@
 - `gibd <name>`: Delete branch
 - `gibr <old> <new>`: Delete branch
 - `gic`: Add file contents to the index from the current directory and record changes to the repository
+- `gica`: Change the previous commit's message
 - `gico`: Switch branches or restore working tree files
 - `gif`: Download objects and refs from another repository
 - `gil`: Shows the commit logs
 - `gip`: Fetch from and integrate with another repository or a local branch
+- `gipr`: Fetch from and integrate with another repository or a local branch using `--rebase`
 - `gipu`: Update remote refs along with associated objects
 - `gipuf`: Update remote refs along with associated objects using `--force-with-lease`
 - `girh <commit>`: Hard reset current HEAD to the specified state
