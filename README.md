@@ -77,6 +77,10 @@
 
 #### git
 
+- `gib`: List branches
+- `gibc <name>`: Create branch
+- `gibd <name>`: Delete branch
+- `gibr <old> <new>`: Delete branch
 - `gic`: Add file contents to the index from the current directory and record changes to the repository
 - `gico`: Switch branches or restore working tree files
 - `gif`: Download objects and refs from another repository

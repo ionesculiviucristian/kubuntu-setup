@@ -108,6 +108,16 @@ gicpuf() {
 gico() {
     git checkout "$1"
 }
+alias gib="git branch"
+gibc() {
+    git branch "$1"
+}
+gibd() {
+    git branch -d "$1"
+}
+gibr() {
+    git branch -m "$1" "$2"
+}
 alias gif="git fetch"
 alias gil='git log --graph --pretty=format:"%C(cyan)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(magenta)<%an>%Creset" --abbrev-commit --date=relative'
 alias gip="git pull"
