@@ -118,6 +118,9 @@ gibc() {
 gibd() {
     git branch -d "$1"
 }
+gibdf() {
+    git branch -D "$1"
+}
 gibr() {
     git branch -m "$1" "$2"
 }

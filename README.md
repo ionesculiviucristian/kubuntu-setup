@@ -79,7 +79,8 @@
 
 - `gib`: List branches
 - `gibc <name>`: Create branch
-- `gibd <name>`: Delete branch
+- `gibd <name>`: Delete merged branch
+- `gibdf <name>`: Delete non-merged branch
 - `gibr <old> <new>`: Delete branch
 - `gic`: Add file contents to the index from the current directory and record changes to the repository
 - `gica`: Change the previous commit's message
