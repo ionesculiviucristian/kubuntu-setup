@@ -2,8 +2,21 @@
 
 set -eu
 
-# Install packages
+install_deb() {
+  DEB_INSTALLER=$(mktemp)
+  wget "$1" -O ${DEB_INSTALLER}
+  sudo apt install -y ${DEB_INSTALLER}
+  rm ${DEB_INSTALLER}
+}
+
+sudo add-apt-repository ppa:rvm/smplayer 
+
 sudo apt update
+
+# Install drivers
+sudo ubuntu-drivers autoinstall
+
+# Install packages
 sudo apt install -y \
   apache2-utils \
   bat \
@@ -17,18 +30,15 @@ sudo apt install -y \
   jose \
   keepassxc \
   libnss3-tools \
-  mesa-utils \
   net-tools \
+  smplayer smplayer-themes \
   transmission \
   tree \
   virtualbox \
   wkhtmltopdf
 
-sudo snap install postman
-
-# Invoke bat easier
-mkdir -p ~/.local/bin
-ln -s /usr/bin/batcat ~/.local/bin/bat
+sudo snap install \
+  postman
 
 # Setup directories
 mkdir ~/.backups
@@ -43,11 +53,41 @@ tar -xf ~/.local/share/fonts/JetBrainsMono.tar.xz -C ~/.local/share/fonts
 rm ~/.local/share/fonts/JetBrainsMono.tar.xz
 fc-cache -f -v
 
+# Setup bat
+mkdir -p ~/.local/bin
+ln -s /usr/bin/batcat ~/.local/bin/bat
+
+# Setup git
+git config --global user.name "Ionescu Liviu Cristian"
+git config --global user.email "$(echo bGl2aXVAcHVycGxlY2F0LWxhYnMuY29t | base64 --decode)"
+git config --global init.defaultBranch main
+git config --global core.editor "code --wait --new-window"
+git config --global diff.tool vscode
+git config --global difftool.vscode.cmd 'code --wait --diff $LOCAL $REMOTE'
+git config --global merge.tool vscode
+git config --global mergetool.vscode.cmd 'code --wait $MERGED'
+
+# Setup python
+sudo ln -s /usr/bin/python3 /usr/bin/python
+
 # Install python tools (pipx, poetry)
 sudo apt update
 sudo apt install -y pipx
 pipx ensurepath
 pipx install poetry
+
+# HARDINFO2
+# https://github.com/hardinfo2/hardinfo2
+install_deb https://github.com/hardinfo2/hardinfo2/releases/download/release-2.1.10pre/hardinfo2_2.1.10-Ubuntu-24.04_amd64.deb
+
+# Google Chrome
+install_deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+# GitHub Desktop
+# https://github.com/apps/desktop
+wget -qO - https://apt.packages.shiftkey.dev/gpg.key | gpg --dearmor | sudo tee /usr/share/keyrings/shiftkey-packages.gpg > /dev/null
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/shiftkey-packages.gpg] https://apt.packages.shiftkey.dev/ubuntu/ any main" > /etc/apt/sources.list.d/shiftkey-packages.list'
+sudo apt update && sudo apt install github-desktop
 
 # nvm (Node Version Manager)
 # https://github.com/nvm-sh/nvm?tab=readme-ov-file#install--update-script
@@ -59,22 +99,14 @@ nvm install 18
 nvm install 20
 nvm install 22
 
-nvm use 20
+nvm alias default 20
+
 nvm install-latest-npm
 npm install -g npm-check-updates
 
-# Google Chrome
-GOOGLE_CHROME_DEB=$(mktemp)
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O ${GOOGLE_CHROME_DEB}
-sudo apt install -y ${GOOGLE_CHROME_DEB}
-rm ${GOOGLE_CHROME_DEB}
-
 # VSCode
 # https://code.visualstudio.com/docs/setup/linux
-CODE_DEB=$(mktemp)
-wget https://go.microsoft.com/fwlink/?LinkID=760868 -O ${CODE_DEB}
-sudo apt install -y ${CODE_DEB}
-rm ${CODE_DEB}
+install_deb https://go.microsoft.com/fwlink/?LinkID=760868
 
 # Docker
 # https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
@@ -86,34 +118,28 @@ echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
 
-sudo apt -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt-get update && sudo apt -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 sudo docker run hello-world
 
 sudo usermod -aG docker $USER
 
-# GitHub Desktop
-# https://github.com/apps/desktop
-wget -qO - https://apt.packages.shiftkey.dev/gpg.key | gpg --dearmor | sudo tee /usr/share/keyrings/shiftkey-packages.gpg > /dev/null
-sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/shiftkey-packages.gpg] https://apt.packages.shiftkey.dev/ubuntu/ any main" > /etc/apt/sources.list.d/shiftkey-packages.list'
-sudo apt update && sudo apt install github-desktop
+# NVIDIA Container Toolkit
+# https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+  && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+    sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
+sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
+
+sudo nvidia-ctk runtime configure --runtime=docker
 
 # Install dotfiles
-./install_aliases.sh
 guake --restore-preferences ./dotfiles/guake
 
-# Apply settings
-git config --global user.name "Ionescu Liviu Cristian"
-git config --global user.email "$(echo bGl2aXVAcHVycGxlY2F0LWxhYnMuY29t | base64 --decode)"
-git config --global init.defaultBranch main
-git config --global core.editor "code --wait --new-window"
-git config --global diff.tool vscode
-git config --global difftool.vscode.cmd 'code --wait --diff $LOCAL $REMOTE'
-git config --global merge.tool vscode
-git config --global mergetool.vscode.cmd 'code --wait $MERGED'
-
-sudo ln -s /usr/bin/python3 /usr/bin/python
+# Install aliases
+./install_aliases.sh
 
 sudo reboot now

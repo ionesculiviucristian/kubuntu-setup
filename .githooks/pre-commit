@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -eu
+
+python ./generate_aliases_info.py
+git add ./dotfiles/.bash_aliases_help
+git add ./aliases.md
