@@ -12,7 +12,7 @@ alias free="free --mebi --total"
 alias ll="ls -l --all --human-readable"
 alias mkdir="mkdir --parents"
 alias ps="ps auxf"
-alias rm="rm --interactive-always"
+alias rm="rm --interactive=always"
 
 # ======================================
 # File system
