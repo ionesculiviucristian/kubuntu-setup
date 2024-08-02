@@ -85,12 +85,20 @@ alias aptu="sudo apt update && sudo apt upgrade"
 # @group docker
 alias dc="docker compose"
 
-# @info Execute a command in a running container, as root
+# @info Execute a command in a running container
 # @group docker
 # @param <CONTAINER>
 # @param [COMMAND] {sh}
 function de() {
     docker exec -it "$1" sh -c "${2:-sh}"
+}
+
+# @info Execute a command in a running container, as root
+# @group docker
+# @param <CONTAINER>
+# @param [COMMAND] {sh}
+function der() {
+    docker exec -it --user root "$1" sh -c "${2:-sh}"
 }
 
 # @info Return low-level information on Docker objects

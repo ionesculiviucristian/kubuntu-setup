@@ -21,7 +21,8 @@
 ## Docker
 
 - `dc`: Define and run multi-container applications with Docker
-- `de <CONTAINER> [COMMAND] {sh}`: Execute a command in a running container, as root
+- `de <CONTAINER> [COMMAND] {sh}`: Execute a command in a running container
+- `der <CONTAINER> [COMMAND] {sh}`: Execute a command in a running container, as root
 - `di <NAME|ID>`: Return low-level information on Docker objects
 - `dl <CONTAINER>`: Fetch the logs of a container
 - `dlclr`: Empty log files from all containers
