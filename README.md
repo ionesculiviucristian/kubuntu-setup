@@ -18,6 +18,7 @@
 - [jose](https://github.com/panva/jose): JWA, JWS, JWE, JWT, JWK, JWKS for Node.js, Browser, Cloudflare Workers, Deno, Bun, and other Web-interoperable runtimes
 - [keepassxc](https://github.com/keepassxreboot/keepassxc): KeePassXC is a cross-platform community-driven port of the Windows application "Keepass Password Safe"
 - [libnss3-tools](https://packages.ubuntu.com/focal/libnss3-tools): Network Security Service tools
+- [MySQL Workbench](https://www.mysql.com/products/community/): MySQL Community Edition is the freely downloadable version of the world's most popular open source database
 - [net-tools](https://github.com/ecki/net-tools): Linux base networking tools
 - [nvm](https://github.com/nvm-sh/nvm): Node Version Manager - POSIX-compliant bash script to manage multiple active node.js versions
 - [pipx](https://github.com/pypa/pipx): Install and Run Python Applications in Isolated Environments

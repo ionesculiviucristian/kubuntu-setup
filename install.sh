@@ -104,6 +104,9 @@ nvm alias default 20
 nvm install-latest-npm
 npm install -g npm-check-updates
 
+# MySQL Workbench
+install_deb https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community_8.0.38-1ubuntu24.04_amd64.deb
+
 # VSCode
 # https://code.visualstudio.com/docs/setup/linux
 install_deb https://go.microsoft.com/fwlink/?LinkID=760868
