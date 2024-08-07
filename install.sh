@@ -38,7 +38,11 @@ sudo apt install -y \
   wkhtmltopdf
 
 sudo snap install \
-  postman
+  postman \
+  mysql-workbench-community
+
+snap connect mysql-workbench-community:password-manager-service 
+snap connect mysql-workbench-community:ssh-keys
 
 # Setup directories
 mkdir ~/.backups
@@ -103,9 +107,6 @@ nvm alias default 20
 
 nvm install-latest-npm
 npm install -g npm-check-updates
-
-# MySQL Workbench
-install_deb https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community_8.0.38-1ubuntu24.04_amd64.deb
 
 # VSCode
 # https://code.visualstudio.com/docs/setup/linux
