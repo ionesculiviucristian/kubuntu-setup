@@ -447,6 +447,15 @@ alias pos="poetry shell"
 # Misc
 # ======================================
 
+_complete_projects() {
+    local cur;
+    local base="${HOME}/Projects"
+    _get_comp_words_by_ref cur;
+    cur="$base$cur"
+    _filedir
+    COMPREPLY=("${COMPREPLY[@]#$base}")
+}
+
 # @info Backup files from current directory to \`~/.backups\`
 # @group misc
 alias backup='zip "$HOME/.backups/$(basename "$PWD" | tr "[:upper:]" "[:lower:]" | tr " " "-")-$(date +%Y%m%d%H%M%S).zip" -r .'
@@ -475,17 +484,7 @@ function projc() {
     cd "${HOME}/Projects/$1"
     git init
 }
-
-function _autocomplete_projects() {
-    local cur;
-    local base="${HOME}/Projects"
-    _get_comp_words_by_ref cur;
-    cur="$base$cur"
-    _filedir
-    COMPREPLY=("${COMPREPLY[@]#$base}")
-}
-
-complete -o nospace -F _autocomplete_projects projo
+complete -o nospace -F _complete_projects projo
 
 # @info Open a project found in \`~/Projects\` with code editor
 # @group misc
