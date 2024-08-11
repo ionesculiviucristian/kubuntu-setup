@@ -12,7 +12,6 @@
 - [curl](https://github.com/curl/curl): A command line tool and library for transferring data with URL syntax, supporting DICT, FILE, FTP, FTPS, GOPHER, GOPHERS, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, MQTT, POP3, POP3S, RTMP, RTMPS, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET, TFTP, WS and WSS. libcurl offers a myriad of powerful features
 - [dconf-cli](https://packages.ubuntu.com/noble/dconf-cli): simple configuration storage system - utilities
 - [Docker](https://www.docker.com/): Docker is a platform designed to help developers build, share, and run container applications
-- [GitHub Desktop](https://github.com/shiftkey/desktop): GitHub Desktop is an open-source Electron-based GitHub app
 - [guake](https://github.com/Guake/guake): Drop-down terminal for GNOME
 - [HARDINFO2](https://github.com/hardinfo2/hardinfo2): System Information and Benchmark for Linux Systems
 - [jose](https://github.com/panva/jose): JWA, JWS, JWE, JWT, JWK, JWKS for Node.js, Browser, Cloudflare Workers, Deno, Bun, and other Web-interoperable runtimes

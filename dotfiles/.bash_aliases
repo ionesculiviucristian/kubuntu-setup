@@ -1,7 +1,3 @@
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-NC='\033[0m'
-
 # ======================================
 # System overrides
 # ======================================
@@ -69,8 +65,7 @@ function apti() {
 # @group apt
 # @param <PACKAGE...>
 function aptr() {
-    sudo apt purge "$@"
-    sudo apt autoremove
+    sudo apt purge "$@" && sudo apt autoremove
 }
 
 # @info Upgrade the system by installing/upgrading packages
@@ -81,9 +76,10 @@ alias aptu="sudo apt update && sudo apt upgrade"
 # Docker
 # ======================================
 
-# @info Define and run multi-container applications with Docker
-# @group docker
-alias dc="docker compose"
+_complete_containers() {
+    local containers=$(docker ps --format "{{.Names}}")
+    COMPREPLY=($(compgen -W "$containers" -- "$2"))
+}
 
 # @info Execute a command in a running container
 # @group docker
@@ -92,6 +88,7 @@ alias dc="docker compose"
 function de() {
     docker exec -it "$1" sh -c "${2:-sh}"
 }
+complete -F _complete_containers de
 
 # @info Execute a command in a running container, as root
 # @group docker
@@ -100,6 +97,7 @@ function de() {
 function der() {
     docker exec -it --user root "$1" sh -c "${2:-sh}"
 }
+complete -F _complete_containers der
 
 # @info Return low-level information on Docker objects
 # @group docker
@@ -107,6 +105,7 @@ function der() {
 function di() {
     docker inspect "$1"
 }
+complete -F _complete_containers di
 
 # @info Fetch the logs of a container
 # @group docker
@@ -114,8 +113,9 @@ function di() {
 function dl() {
     docker logs --follow "$1"
 }
+complete -F _complete_containers dl
 
-# @info Empty log files from all containers
+# @info Empty the log files from all containers
 # @group docker
 alias dlclr='docker ps -aq | xargs --replace={} sh -c "sudo truncate --size=0 \$(docker inspect --format=\"{{.LogPath}}\" {})"'
 
@@ -151,6 +151,7 @@ function dpsaf() {
 function ds() {
     docker stop "$@"
 }
+complete -F _complete_containers ds
 
 # @info Stop all running containers
 # @group docker
@@ -164,12 +165,22 @@ alias dsts="docker stats"
 # Docker compose
 # ======================================
 
+_complete_services() {
+    local services=$(docker compose ps --services 2>/dev/null)
+    COMPREPLY=($(compgen -W "$services" -- "$2"))
+}
+
+# @info Define and run multi-container applications with Docker
+# @group docker_compose
+alias dc="docker compose"
+
 # @info Build or rebuild services
 # @group docker_compose
 # @param <SERVICE...>
 function dcb() {
     docker compose build "$@"
 }
+complete -F _complete_services dcb
 
 # @info Stop and remove containers, networks
 # @group docker_compose
@@ -177,6 +188,7 @@ function dcb() {
 function dcd() {
     docker compose down --remove-orphans "$@"
 }
+complete -F _complete_services dcd
 
 # @info Stop and remove containers, networks including volumes
 # @group docker_compose
@@ -184,6 +196,7 @@ function dcd() {
 function dcdv() {
     docker compose down --remove-orphans --volumes "$@"
 }
+complete -F _complete_services dcdv
 
 # @info Execute a command in a running container
 # @group docker_compose
@@ -192,6 +205,7 @@ function dcdv() {
 function dce() {
     docker compose exec "$1" sh -c "${2:-sh}"
 }
+complete -F _complete_services dce
 
 # @info Execute a command in a running container, as root
 # @group docker_compose
@@ -200,6 +214,7 @@ function dce() {
 function dcer() {
     docker compose exec --user root "$1" sh -c "${2:-sh}"
 }
+complete -F _complete_services dcer
 
 # @info Return low-level information on Docker objects
 # @group docker_compose
@@ -207,6 +222,7 @@ function dcer() {
 function dci() {
     docker inspect $(docker compose ps --quiet "$1")
 }
+complete -F _complete_services dci
 
 # @info View output from containers
 # @group docker_compose
@@ -214,6 +230,7 @@ function dci() {
 function dcl() {
     docker compose logs --follow --tail 1000 "$@"
 }
+complete -F _complete_services dcl
 
 # @info List containers
 # @group docker_compose
@@ -221,6 +238,7 @@ function dcl() {
 function dcps() {
     docker compose ps --format "table {{.ID}}\t{{.Name}}\t{{.Service}}\t{{.State}}\t{{.Status}}\t{{.Ports}}" "$@"
 }
+complete -F _complete_services dcps
 
 # @info Filter running containers list using grep pattern
 # @group docker_compose
@@ -235,6 +253,7 @@ function dcpsf() {
 function dcr() {
     docker compose restart "$@"
 }
+complete -F _complete_services dcr
 
 # @info Restart service containers and view output from containers
 # @group docker_compose
@@ -242,6 +261,7 @@ function dcr() {
 function dcrl() {
     docker compose restart "$@" && docker compose logs --follow --tail 1000 "$@"
 }
+complete -F _complete_services dcrl
 
 # @info Create and start containers
 # @group docker_compose
@@ -249,6 +269,7 @@ function dcrl() {
 function dcu() {
     docker compose up --detach "$@"
 }
+complete -F _complete_services dcu
 
 # @info Build, create and start containers
 # @group docker_compose
@@ -256,6 +277,7 @@ function dcu() {
 function dcub() {
     docker compose up --detach --build "$@"
 }
+complete -F _complete_services dcub
 
 # @info Recreate and start containers even if their configuration and image haven't changed
 # @group docker_compose
@@ -263,6 +285,7 @@ function dcub() {
 function dcuf() {
     docker compose up --detach --force-recreate "$@"
 }
+complete -F _complete_services dcuf
 
 # @info Create, start and view output from containers
 # @group docker_compose
@@ -270,10 +293,16 @@ function dcuf() {
 function dcul() {
     docker compose up --detach "$@" && docker compose logs --follow --tail 1000 "$@"
 }
+complete -F _complete_services dcul
 
 # ======================================
 # git
 # ======================================
+
+_complete_branches() {
+    local branches=$(git branch 2>/dev/null | sed 's/^[* ]*//')
+    COMPREPLY=($(compgen -W "$branches" -- "$2"))
+}
 
 # @info List branches
 # @group git
@@ -299,6 +328,7 @@ function gibco() {
 function gibd() {
     git branch -d "$1"
 }
+complete -F _complete_branches gibd
 
 # @info Delete non-merged branch
 # @group git
@@ -306,6 +336,7 @@ function gibd() {
 function gibdf() {
     git branch -D "$1"
 }
+complete -F _complete_branches gibdf
 
 # @info Rename branch
 # @group git
@@ -314,6 +345,7 @@ function gibdf() {
 function gibr() {
     git branch -m "$1" "$2"
 }
+complete -F _complete_branches gibr
 
 # @info Stage and commit all files from current directory
 # @group git
@@ -349,6 +381,7 @@ function gicpuf() {
 function gico() {
     git checkout "$1"
 }
+complete -F _complete_branches gico
 
 # @info Download objects and refs from another repository
 # @group git

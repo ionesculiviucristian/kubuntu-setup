@@ -87,12 +87,6 @@ install_deb https://github.com/hardinfo2/hardinfo2/releases/download/release-2.1
 # Google Chrome
 install_deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
-# GitHub Desktop
-# https://github.com/apps/desktop
-wget -qO - https://apt.packages.shiftkey.dev/gpg.key | gpg --dearmor | sudo tee /usr/share/keyrings/shiftkey-packages.gpg > /dev/null
-sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/shiftkey-packages.gpg] https://apt.packages.shiftkey.dev/ubuntu/ any main" > /etc/apt/sources.list.d/shiftkey-packages.list'
-sudo apt update && sudo apt install github-desktop
-
 # nvm (Node Version Manager)
 # https://github.com/nvm-sh/nvm?tab=readme-ov-file#install--update-script
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash

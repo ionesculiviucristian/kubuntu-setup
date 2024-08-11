@@ -20,12 +20,11 @@
 
 ## Docker
 
-- `dc`: Define and run multi-container applications with Docker
 - `de <CONTAINER> [COMMAND] {sh}`: Execute a command in a running container
 - `der <CONTAINER> [COMMAND] {sh}`: Execute a command in a running container, as root
 - `di <NAME|ID>`: Return low-level information on Docker objects
 - `dl <CONTAINER>`: Fetch the logs of a container
-- `dlclr`: Empty log files from all containers
+- `dlclr`: Empty the log files from all containers
 - `dlsz`: List all container log files ordered by their size
 - `dps`: List running containers
 - `dpsa`: List all containers
@@ -37,6 +36,7 @@
 
 ## Docker compose
 
+- `dc`: Define and run multi-container applications with Docker
 - `dcb <SERVICE...>`: Build or rebuild services
 - `dcd <SERVICE...>`: Stop and remove containers, networks
 - `dcdv <SERVICE...>`: Stop and remove containers, networks including volumes
