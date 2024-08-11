@@ -324,7 +324,7 @@ function gibco() {
 
 # @info Delete merged branch
 # @group git
-# @param <NAME>
+# @param <BRANCH>
 function gibd() {
     git branch -d "$1"
 }
@@ -332,7 +332,7 @@ complete -F _complete_branches gibd
 
 # @info Delete non-merged branch
 # @group git
-# @param <NAME>
+# @param <BRANCH>
 function gibdf() {
     git branch -D "$1"
 }
@@ -340,8 +340,8 @@ complete -F _complete_branches gibdf
 
 # @info Rename branch
 # @group git
-# @param <OLD>
-# @param <NEW>
+# @param <OLD BRANCH>
+# @param <NEW BRANCH>
 function gibr() {
     git branch -m "$1" "$2"
 }
@@ -377,7 +377,7 @@ function gicpuf() {
 
 # @info Checkout branch
 # @group git
-# @param <NAME>
+# @param <BRANCH>
 function gico() {
     git checkout "$1"
 }
@@ -390,6 +390,14 @@ alias gif="git fetch"
 # @info Show commit logs
 # @group git
 alias gil='git log --graph --pretty=format:"%C(cyan)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(magenta)<%an>%Creset" --abbrev-commit --date=relative'
+
+# @info Join two or more development histories together
+# @group git
+# @param <BRANCH...>
+function gim() {
+    git merge "$@"
+}
+complete -F _complete_branches gim
 
 # @info Fetch from and integrate with another repository or a local branch
 # @group git

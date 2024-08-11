@@ -58,16 +58,17 @@
 - `gib`: List branches
 - `gibc <NAME>`: Create branch
 - `gibco <NAME>`: Create and checkout branch
-- `gibd <NAME>`: Delete merged branch
-- `gibdf <NAME>`: Delete non-merged branch
-- `gibr <OLD> <NEW>`: Rename branch
+- `gibd <BRANCH>`: Delete merged branch
+- `gibdf <BRANCH>`: Delete non-merged branch
+- `gibr <OLD BRANCH> <NEW BRANCH>`: Rename branch
 - `gic <MESSAGE>`: Stage and commit all files from current directory
 - `gica <MESSAGE>`: Ammend commit
-- `gico <NAME>`: Checkout branch
+- `gico <BRANCH>`: Checkout branch
 - `gicpu <MESSAGE>`: Stage, commit and push all files from current directory
 - `gicpuf <MESSAGE>`: Stage, commit and force push with lease all files from current directory
 - `gif`: Download objects and refs from another repository
 - `gil`: Show commit logs
+- `gim <BRANCH...>`: Join two or more development histories together
 - `gip`: Fetch from and integrate with another repository or a local branch
 - `gipr`: Fetch from and integrate with another repository or a local branch using rebase
 - `gipu`: Update remote refs along with associated objects
