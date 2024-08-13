@@ -78,7 +78,9 @@ alias aptu="sudo apt update && sudo apt upgrade"
 
 _complete_containers() {
     local MODE="$1"
-    shift
+    if [[ ${MODE} == "single" ]]; then
+        shift
+    fi
     if [[ ${MODE} == "single" && ${COMP_CWORD} -ge 2 ]]; then
         COMPREPLY=()
         return 0
