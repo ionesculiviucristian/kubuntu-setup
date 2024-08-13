@@ -179,7 +179,9 @@ alias dsts="docker stats"
 
 _complete_services() {
     local MODE="$1"
-    shift
+    if [[ ${MODE} == "single" ]]; then
+        shift
+    fi
     if [[ ${MODE} == "single" && ${COMP_CWORD} -ge 2 ]]; then
         COMPREPLY=()
         return 0
@@ -227,7 +229,7 @@ complete -F _complete_services dcdv
 function dce() {
     docker compose exec "$1" sh -c "${2:-sh}"
 }
-complete -o nospace -F _complete_containers_single dce
+complete -o nospace -F _complete_services_single dce
 
 # @info Execute a command in a running container, as root
 # @group docker_compose
@@ -236,7 +238,7 @@ complete -o nospace -F _complete_containers_single dce
 function dcer() {
     docker compose exec --user root "$1" sh -c "${2:-sh}"
 }
-complete -o nospace -F _complete_containers_single dcer
+complete -o nospace -F _complete_services_single dcer
 
 # @info Return low-level information on Docker objects
 # @group docker_compose
@@ -244,7 +246,7 @@ complete -o nospace -F _complete_containers_single dcer
 function dci() {
     docker inspect $(docker compose ps --quiet "$1")
 }
-complete -o nospace -F _complete_containers_single dci
+complete -o nospace -F _complete_services_single dci
 
 # @info View output from containers
 # @group docker_compose
