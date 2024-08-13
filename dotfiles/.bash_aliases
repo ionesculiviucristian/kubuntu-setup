@@ -77,8 +77,18 @@ alias aptu="sudo apt update && sudo apt upgrade"
 # ======================================
 
 _complete_containers() {
-    local containers=$(docker ps --format "{{.Names}}")
-    COMPREPLY=($(compgen -W "$containers" -- "$2"))
+    local MODE="$1"
+    shift
+    if [[ ${MODE} == "single" && ${COMP_CWORD} -ge 2 ]]; then
+        COMPREPLY=()
+        return 0
+    fi
+    local CONTAINERS=$(docker ps --format "{{.Names}}")
+    COMPREPLY=($(compgen -W "${CONTAINERS}}" -- "$2"))
+}
+
+_complete_containers_single() {
+    _complete_containers "single" "$@"
 }
 
 # @info Execute a command in a running container
@@ -88,7 +98,7 @@ _complete_containers() {
 function de() {
     docker exec -it "$1" sh -c "${2:-sh}"
 }
-complete -F _complete_containers de
+complete -o nospace -F _complete_containers_single de
 
 # @info Execute a command in a running container, as root
 # @group docker
@@ -97,7 +107,7 @@ complete -F _complete_containers de
 function der() {
     docker exec -it --user root "$1" sh -c "${2:-sh}"
 }
-complete -F _complete_containers der
+complete -o nospace -F _complete_containers_single der
 
 # @info Return low-level information on Docker objects
 # @group docker
@@ -105,7 +115,7 @@ complete -F _complete_containers der
 function di() {
     docker inspect "$1"
 }
-complete -F _complete_containers di
+complete -o nospace -F _complete_containers_single di
 
 # @info Fetch the logs of a container
 # @group docker
@@ -113,7 +123,7 @@ complete -F _complete_containers di
 function dl() {
     docker logs --follow "$1"
 }
-complete -F _complete_containers dl
+complete -o nospace -F _complete_containers_single dl
 
 # @info Empty the log files from all containers
 # @group docker
@@ -166,8 +176,18 @@ alias dsts="docker stats"
 # ======================================
 
 _complete_services() {
-    local services=$(docker compose ps --services 2>/dev/null)
-    COMPREPLY=($(compgen -W "$services" -- "$2"))
+    local MODE="$1"
+    shift
+    if [[ ${MODE} == "single" && ${COMP_CWORD} -ge 2 ]]; then
+        COMPREPLY=()
+        return 0
+    fi
+    local SERVICES=$(docker compose ps --services 2>/dev/null)
+    COMPREPLY=($(compgen -W "${SERVICES}" -- "$2"))
+}
+
+_complete_services_single() {
+    _complete_services "single" "$@"
 }
 
 # @info Define and run multi-container applications with Docker
@@ -205,7 +225,7 @@ complete -F _complete_services dcdv
 function dce() {
     docker compose exec "$1" sh -c "${2:-sh}"
 }
-complete -F _complete_services dce
+complete -o nospace -F _complete_containers_single dce
 
 # @info Execute a command in a running container, as root
 # @group docker_compose
@@ -214,7 +234,7 @@ complete -F _complete_services dce
 function dcer() {
     docker compose exec --user root "$1" sh -c "${2:-sh}"
 }
-complete -F _complete_services dcer
+complete -o nospace -F _complete_containers_single dcer
 
 # @info Return low-level information on Docker objects
 # @group docker_compose
@@ -222,7 +242,7 @@ complete -F _complete_services dcer
 function dci() {
     docker inspect $(docker compose ps --quiet "$1")
 }
-complete -F _complete_services dci
+complete -o nospace -F _complete_containers_single dci
 
 # @info View output from containers
 # @group docker_compose
@@ -300,8 +320,12 @@ complete -F _complete_services dcul
 # ======================================
 
 _complete_branches() {
-    local branches=$(git branch 2>/dev/null | sed 's/^[* ]*//')
-    COMPREPLY=($(compgen -W "$branches" -- "$2"))
+    if [[ ${COMP_CWORD} -ge 2 ]]; then
+        COMPREPLY=()
+        return 0
+    fi
+    local BRANCHES=$(git branch 2>/dev/null | sed 's/^[* ]*//')
+    COMPREPLY=($(compgen -W "${BRANCHES}" -- "$2"))
 }
 
 # @info List branches
@@ -328,7 +352,7 @@ function gibco() {
 function gibd() {
     git branch -d "$1"
 }
-complete -F _complete_branches gibd
+complete -o nospace -F _complete_branches gibd
 
 # @info Delete non-merged branch
 # @group git
@@ -336,7 +360,7 @@ complete -F _complete_branches gibd
 function gibdf() {
     git branch -D "$1"
 }
-complete -F _complete_branches gibdf
+complete -o nospace -F _complete_branches gibdf
 
 # @info Rename branch
 # @group git
@@ -345,7 +369,7 @@ complete -F _complete_branches gibdf
 function gibr() {
     git branch -m "$1" "$2"
 }
-complete -F _complete_branches gibr
+complete -o nospace -F _complete_branches gibr
 
 # @info Stage and commit all files from current directory
 # @group git
@@ -381,7 +405,7 @@ function gicpuf() {
 function gico() {
     git checkout "$1"
 }
-complete -F _complete_branches gico
+complete -o nospace -F _complete_branches gico
 
 # @info Download objects and refs from another repository
 # @group git
@@ -456,12 +480,11 @@ alias pos="poetry shell"
 # ======================================
 
 _complete_projects() {
-    local cur;
-    local base="${HOME}/Projects"
-    _get_comp_words_by_ref cur;
-    cur="$base$cur"
-    _filedir
-    COMPREPLY=("${COMPREPLY[@]#$base}")
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    COMPREPLY=()
+    pushd "${HOME}/Projects" >/dev/null
+    _filedir -d
+    popd >/dev/null
 }
 
 # @info Backup files from current directory to \`~/.backups\`
