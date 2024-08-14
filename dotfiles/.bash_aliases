@@ -89,7 +89,7 @@ _complete_containers() {
     COMPREPLY=($(compgen -W "${CONTAINERS}}" -- "$2"))
 }
 
-_complete_containers_single() {
+_complete_container() {
     _complete_containers "single" "$@"
 }
 
@@ -100,7 +100,7 @@ _complete_containers_single() {
 function de() {
     docker exec -it "$1" sh -c "${2:-sh}"
 }
-complete -o nospace -F _complete_containers_single de
+complete -o nospace -F _complete_container de
 
 # @info Execute a command in a running container, as root
 # @group docker
@@ -109,7 +109,7 @@ complete -o nospace -F _complete_containers_single de
 function der() {
     docker exec -it --user root "$1" sh -c "${2:-sh}"
 }
-complete -o nospace -F _complete_containers_single der
+complete -o nospace -F _complete_container der
 
 # @info Return low-level information on Docker objects
 # @group docker
@@ -117,7 +117,7 @@ complete -o nospace -F _complete_containers_single der
 function di() {
     docker inspect "$1"
 }
-complete -o nospace -F _complete_containers_single di
+complete -o nospace -F _complete_container di
 
 # @info Fetch the logs of a container
 # @group docker
@@ -125,7 +125,7 @@ complete -o nospace -F _complete_containers_single di
 function dl() {
     docker logs --follow "$1"
 }
-complete -o nospace -F _complete_containers_single dl
+complete -o nospace -F _complete_container dl
 
 # @info Empty the log files from all containers
 # @group docker
@@ -190,7 +190,7 @@ _complete_services() {
     COMPREPLY=($(compgen -W "${SERVICES}" -- "$2"))
 }
 
-_complete_services_single() {
+_complete_service() {
     _complete_services "single" "$@"
 }
 
@@ -229,7 +229,11 @@ complete -F _complete_services dcdv
 function dce() {
     docker compose exec "$1" sh -c "${2:-sh}"
 }
+<<<<<<< Updated upstream
 complete -o nospace -F _complete_services_single dce
+=======
+complete -o nospace -F _complete_container dce
+>>>>>>> Stashed changes
 
 # @info Execute a command in a running container, as root
 # @group docker_compose
@@ -238,7 +242,11 @@ complete -o nospace -F _complete_services_single dce
 function dcer() {
     docker compose exec --user root "$1" sh -c "${2:-sh}"
 }
+<<<<<<< Updated upstream
 complete -o nospace -F _complete_services_single dcer
+=======
+complete -o nospace -F _complete_container dcer
+>>>>>>> Stashed changes
 
 # @info Return low-level information on Docker objects
 # @group docker_compose
@@ -246,7 +254,11 @@ complete -o nospace -F _complete_services_single dcer
 function dci() {
     docker inspect $(docker compose ps --quiet "$1")
 }
+<<<<<<< Updated upstream
 complete -o nospace -F _complete_services_single dci
+=======
+complete -o nospace -F _complete_container dci
+>>>>>>> Stashed changes
 
 # @info View output from containers
 # @group docker_compose
