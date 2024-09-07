@@ -9,6 +9,8 @@ install_deb() {
   rm ${DEB_INSTALLER}
 }
 
+sudo localectl set-locale LC_TIME=en_US.utf8
+
 sudo add-apt-repository ppa:rvm/smplayer 
 
 sudo apt update
