@@ -229,11 +229,7 @@ complete -F _complete_services dcdv
 function dce() {
     docker compose exec "$1" sh -c "${2:-sh}"
 }
-<<<<<<< Updated upstream
 complete -o nospace -F _complete_services_single dce
-=======
-complete -o nospace -F _complete_container dce
->>>>>>> Stashed changes
 
 # @info Execute a command in a running container, as root
 # @group docker_compose
@@ -242,11 +238,7 @@ complete -o nospace -F _complete_container dce
 function dcer() {
     docker compose exec --user root "$1" sh -c "${2:-sh}"
 }
-<<<<<<< Updated upstream
 complete -o nospace -F _complete_services_single dcer
-=======
-complete -o nospace -F _complete_container dcer
->>>>>>> Stashed changes
 
 # @info Return low-level information on Docker objects
 # @group docker_compose
@@ -254,11 +246,7 @@ complete -o nospace -F _complete_container dcer
 function dci() {
     docker inspect $(docker compose ps --quiet "$1")
 }
-<<<<<<< Updated upstream
 complete -o nospace -F _complete_services_single dci
-=======
-complete -o nospace -F _complete_container dci
->>>>>>> Stashed changes
 
 # @info View output from containers
 # @group docker_compose
