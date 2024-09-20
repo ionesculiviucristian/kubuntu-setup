@@ -12,11 +12,11 @@
 - `.4`: Go up four directory levels
 - `lll`: List information about the FILEs
 
-## apt package manager
+## Packages manager
 
-- `apti <PACKAGE...>`: Install packages
-- `aptr <PACKAGE...>`: Remove packages
-- `aptu`: Upgrade the system by installing/upgrading packages
+- `pkgi <PACKAGE...>`: Install packages
+- `pkgr <PACKAGE...>`: Remove packages
+- `pkgu`: Upgrade the system by installing/upgrading packages
 
 ## Docker
 
@@ -75,6 +75,7 @@
 - `gipuf`: Force update with lease remote refs along with associated objects
 - `girh <SHA1>`: Hard reset current HEAD to the specified state
 - `gis`: Stash the changes in a dirty working directory away
+- `gisp`: Remove a single stashed state from the stash list and apply it on top of the current working tree state
 - `gisq <SHA1> <MESSAGE>`: Squash commits
 
 ## poetry

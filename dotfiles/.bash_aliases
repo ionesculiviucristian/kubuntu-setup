@@ -51,26 +51,78 @@ alias .4="cd ../../../../"
 alias lll="ls -l --all --human-readable | less"
 
 # ======================================
-# apt package manager
+# Package manager
 # ======================================
 
+if command -v apt > /dev/null; then
+    PACKAGE_MANAGER="apt"
+elif command -v pacman > /dev/null; then
+    PACKAGE_MANAGER="pacman"
+elif command -v zypper > /dev/null; then
+    PACKAGE_MANAGER="zypper"
+else
+    PACKAGE_MANAGER="" 
+fi
+
 # @info Install packages
-# @group apt
+# @group pkgmgr
 # @param <PACKAGE...>
-function apti() {
-    sudo apt install "$@"
+function pkgi() {
+    case "$PACKAGE_MANAGER" in
+        apt)
+            sudo apt install "$@"
+            ;;
+        pacman)
+            sudo pacman -S "$@"
+            ;;
+        zypper)
+            sudo zypper install "$@"
+            ;;
+        *)
+            echo "Unsupported package manager"
+            ;;
+    esac
 }
 
 # @info Remove packages
-# @group apt
+# @group pkgmgr
 # @param <PACKAGE...>
-function aptr() {
-    sudo apt purge "$@" && sudo apt autoremove
+function pkgr() {
+    case "$PACKAGE_MANAGER" in
+        apt)
+            sudo apt purge "$@" && sudo apt autoremove
+            ;;
+        pacman)
+            sudo pacman -Rns "$@" && sudo pacman -Qtdq | sudo pacman -Rns -
+            ;;
+        zypper)
+            sudo zypper remove "$@" && sudo zypper clean --all
+            ;;
+        *)
+            echo "Unsupported package manager"
+            ;;
+    esac
 }
 
 # @info Upgrade the system by installing/upgrading packages
-# @group apt
-alias aptu="sudo apt update && sudo apt upgrade"
+# @group pkgmgr
+# @param
+function pkgu() {
+    case "$PACKAGE_MANAGER" in
+        apt)
+            sudo apt update && sudo apt upgrade
+            ;;
+        pacman)
+            sudo pacman -Syu
+            ;;
+        zypper)
+            sudo zypper refresh && sudo zypper update
+            ;;
+        *)
+            echo "Unsupported package manager"
+            ;;
+    esac
+}
 
 # ======================================
 # Docker
@@ -466,6 +518,10 @@ function gisq() {
 # @info Stash the changes in a dirty working directory away
 # @group git
 alias gis="git stash"
+
+# @info Remove a single stashed state from the stash list and apply it on top of the current working tree state
+# @group git
+alias gisp="git stash pop"
 
 # ======================================
 # poetry
