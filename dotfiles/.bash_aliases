@@ -171,6 +171,25 @@ function di() {
 }
 complete -o nospace -F _complete_container di
 
+# @info List images
+# @group docker
+function dim() {
+    docker image ls
+}
+
+# @info List all docker images
+# @group docker
+function dima() {
+    docker image ls --all
+}
+
+# @info Filter docker images
+# @group docker
+# @param <PATTERN>
+function dimf() {
+    docker image ls | grep "$1"
+}
+
 # @info Fetch the logs of a container
 # @group docker
 # @param <CONTAINER>
